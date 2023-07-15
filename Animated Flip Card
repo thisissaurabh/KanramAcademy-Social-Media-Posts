@@ -1,0 +1,187 @@
+import 'package:animated_flip_card/animated_flip_card.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+enum SampleItem { itemOne, itemTwo, itemThree }
+
+final k162836 = Color(0xFF162836);
+final k7F2CCB = Color(0xFF7F2CCB);
+final kFAFD40 = Color(0xFFFAFD40);
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: '',
+      theme: ThemeData(appBarTheme: AppBarTheme(color: k162836)),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 200.0),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: 400,
+            child: ListView(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-nurlan-tortbayev-10311994.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-nurlan-tortbayev-10311994.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: Container(
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-thlil-2416871.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-thlil-2416871.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    SizedBox(
+                      width: 400,
+                      child: AnimatedFlipCard(
+                          front: Image.asset(
+                            'assets/pexels-lorence-lozano-3053844.jpg',
+                            width: 250,
+                            fit: BoxFit.cover,
+                          ),
+                          back: Image.asset(
+                            'assets/pexels-lorence-lozano-3053844.jpg',
+                            width: 250,
+                            fit: BoxFit.contain,
+                          )),
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-min-an-749091.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-min-an-749091.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: Container(
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-yuri-manei-3190334.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-yuri-manei-3190334.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-thaís-silva-3385234.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-thaís-silva-3385234.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: Container(
+                            height: 165,
+                            child: AnimatedFlipCard(
+                                front: Image.asset(
+                                  'assets/pexels-yogendra-singh-693419.jpg',
+                                  width: 250,
+                                  fit: BoxFit.cover,
+                                ),
+                                back: Image.asset(
+                                  'assets/pexels-yogendra-singh-693419.jpg',
+                                  width: 250,
+                                  fit: BoxFit.contain,
+                                )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
