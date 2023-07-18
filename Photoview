@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+enum SampleItem { itemOne, itemTwo, itemThree }
+
+final k162836 = Color(0xFF162836);
+final k7F2CCB = Color(0xFF7F2CCB);
+final kFAFD40 = Color(0xFFFAFD40);
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: '',
+      theme: ThemeData(appBarTheme: AppBarTheme(color: k162836)),
+      home: PhotoViewDemo(),
+    );
+  }
+}
+
+class PhotoViewDemo extends StatefulWidget {
+  @override
+  _PhotoViewDemoState createState() => _PhotoViewDemoState();
+}
+
+class _PhotoViewDemoState extends State<PhotoViewDemo> {
+  final imageList = [
+    'assets/pexels-icnatius-hautias-6765436.jpg',
+    'assets/pexels-imdat-akgün-12411176.jpg',
+    'assets/pexels-muhammad-muzamil-15852254.jpg',
+    'assets/pexels-niklas-jeromin-16716951.jpg',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text("PhotoView Demo"),
+      ),
+      // add this body tag with container and photoview widget
+      body: Container(
+        color: Colors.black,
+        height: 500,
+        // margin: EdgeInsets.only(left: 15, right: 15),
+        width: 400,
+        child: PhotoViewGallery.builder(
+          itemCount: imageList.length,
+          builder: (context, index) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: AssetImage(
+                imageList[index],
+              ),
+              minScale: PhotoViewComputedScale.contained * 0.8,
+              maxScale: PhotoViewComputedScale.covered * 2,
+            );
+          },
+          scrollPhysics: BouncingScrollPhysics(),
+          backgroundDecoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: Colors.black,
+          ),
+          enableRotation: true,
+          loadingBuilder: (context, event) => Center(
+            child: Container(
+              width: 30.0,
+              height: 30.0,
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.orange,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
