@@ -1,0 +1,215 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Example(),
+    ),
+  );
+}
+
+class Example extends StatefulWidget {
+  const Example({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<Example> createState() => _ExamplePageState();
+}
+
+class _ExamplePageState extends State<Example> {
+  final CardSwiperController controller = CardSwiperController();
+
+  final cards = candidates.map(ExampleCard.new).toList();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Flexible(
+              child: CardSwiper(
+                controller: controller,
+                cardsCount: cards.length,
+                onSwipe: _onSwipe,
+                onUndo: _onUndo,
+                numberOfCardsDisplayed: 3,
+                backCardOffset: const Offset(40, 40),
+                padding: const EdgeInsets.all(24.0),
+                cardBuilder: (
+                  context,
+                  index,
+                  horizontalThresholdPercentage,
+                  verticalThresholdPercentage,
+                ) =>
+                    cards[index],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FloatingActionButton(
+                    onPressed: controller.undo,
+                    child: const Icon(Icons.rotate_left),
+                  ),
+                  FloatingActionButton(
+                    onPressed: controller.swipe,
+                    child: const Icon(Icons.rotate_right),
+                  ),
+                  FloatingActionButton(
+                    onPressed: controller.swipeLeft,
+                    child: const Icon(Icons.keyboard_arrow_left),
+                  ),
+                  FloatingActionButton(
+                    onPressed: controller.swipeRight,
+                    child: const Icon(Icons.keyboard_arrow_right),
+                  ),
+                  FloatingActionButton(
+                    onPressed: controller.swipeTop,
+                    child: const Icon(Icons.keyboard_arrow_up),
+                  ),
+                  FloatingActionButton(
+                    onPressed: controller.swipeBottom,
+                    child: const Icon(Icons.keyboard_arrow_down),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  bool _onSwipe(
+    int previousIndex,
+    int? currentIndex,
+    CardSwiperDirection direction,
+  ) {
+    debugPrint(
+      'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
+    );
+    return true;
+  }
+
+  bool _onUndo(
+    int? previousIndex,
+    int currentIndex,
+    CardSwiperDirection direction,
+  ) {
+    debugPrint(
+      'The card $currentIndex was undod from the ${direction.name}',
+    );
+    return true;
+  }
+}
+
+class ExampleCard extends StatelessWidget {
+  final ExampleCandidateModel candidate;
+
+  const ExampleCard(
+    this.candidate, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.red.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          )
+        ],
+      ),
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(candidate.ima), fit: BoxFit.cover)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  candidate.name,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExampleCandidateModel {
+  String name;
+  List<Color> color;
+  String ima;
+
+  ExampleCandidateModel({
+    required this.name,
+    required this.color,
+    required this.ima,
+  });
+}
+
+final List<ExampleCandidateModel> candidates = [
+  ExampleCandidateModel(
+    name: 'Coding like poetry should be short and concise.',
+    color: const [Color(0xFFFF3868), Color(0xFFFFB49A)],
+    ima: 'assets/pexels-yaroslava-borz-10012630.jpg',
+  ),
+  ExampleCandidateModel(
+    name: 'First, solve the problem. Then, write the code',
+    color: const [Color(0xFF736EFE), Color(0xFF62E4EC)],
+    ima: 'assets/pexels-tuesday-temptation-1677786.jpg',
+  ),
+  ExampleCandidateModel(
+    name: 'Make it work, make it right, make it fast',
+    color: const [Color(0xFF2F80ED), Color(0xFF56CCF2)],
+    ima: 'assets/pexels-giovanni-calia-2181230.jpg',
+  ),
+  ExampleCandidateModel(
+    name: 'Confusion is part of programming',
+    color: const [Color(0xFF0BA4E0), Color(0xFFA9E4BD)],
+    ima: 'assets/pexels-daniele-assenza-1268530.jpg',
+  ),
+  ExampleCandidateModel(
+    name: 'There is always one more bug to fix',
+    color: const [Color(0xFF0BA4E0), Color(0xFFA9E4BD)],
+    ima: 'assets/pexels-chase-stine-2919579.jpg',
+  ),
+];
