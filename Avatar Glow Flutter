@@ -1,0 +1,160 @@
+import 'dart:io';
+
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+// Sets a platform override for desktop to avoid exceptions. See
+// https://flutter.dev/desktop#target-platform-override for more info.
+void _enablePlatformOverrideForDesktop() {
+  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
+}
+
+void main() {
+  _enablePlatformOverrideForDesktop();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Avatar Glow Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _animate = true;
+  var images = [
+    "assets/27470335_7309683-removebg-preview.png",
+    "assets/27470334_7309681-removebg-preview.png",
+    "assets/27470343_7309707-removebg-preview.png",
+    "assets/27470351_7342052-removebg-preview.png",
+    "assets/27470341_7294795-removebg-preview.png"
+  ];
+
+  List colors = [
+    Color(0xffffcca5),
+    Color(0xffffe6a6),
+    Color(0xffffcca5),
+    Color(0xffa9d2fe),
+    Color(0xffa9d2fe)
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Avatar Glow by @apgapg"),
+      ),
+      body: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          AvatarGlow(
+            startDelay: Duration(milliseconds: 1000),
+            glowColor: Colors.purple,
+            endRadius: 160.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: true,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            child: CircleAvatar(
+              backgroundColor: Color(0xffffcca5),
+              backgroundImage:
+                  AssetImage("assets/27470335_7309683-removebg-preview.png"),
+              radius: 100.0,
+            ),
+            shape: BoxShape.circle,
+            animate: true,
+            curve: Curves.fastOutSlowIn,
+          ),
+          AvatarGlow(
+            startDelay: Duration(milliseconds: 1000),
+            glowColor: Colors.greenAccent,
+            endRadius: 160.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: true,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            child: CircleAvatar(
+              backgroundColor: Color(0xffffe6a6),
+              backgroundImage:
+                  AssetImage("assets/27470334_7309681-removebg-preview.png"),
+              radius: 100.0,
+            ),
+            shape: BoxShape.circle,
+            animate: true,
+            curve: Curves.fastOutSlowIn,
+          ),
+          AvatarGlow(
+            startDelay: Duration(milliseconds: 1000),
+            glowColor: Colors.yellowAccent,
+            endRadius: 160.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: true,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            child: CircleAvatar(
+              backgroundColor: Color(0xffffcca5),
+              backgroundImage:
+                  AssetImage("assets/27470343_7309707-removebg-preview.png"),
+              radius: 100.0,
+            ),
+            shape: BoxShape.circle,
+            animate: true,
+            curve: Curves.fastOutSlowIn,
+          ),
+          AvatarGlow(
+            startDelay: Duration(milliseconds: 1000),
+            glowColor: Colors.pinkAccent,
+            endRadius: 160.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: true,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            child: CircleAvatar(
+              backgroundColor: Color(0xffa9d2fe),
+              backgroundImage:
+                  AssetImage("assets/27470351_7342052-removebg-preview.png"),
+              radius: 100.0,
+            ),
+            shape: BoxShape.circle,
+            animate: true,
+            curve: Curves.fastOutSlowIn,
+          ),
+          AvatarGlow(
+            startDelay: Duration(milliseconds: 1000),
+            glowColor: Colors.deepOrange,
+            endRadius: 160.0,
+            duration: Duration(milliseconds: 2000),
+            repeat: true,
+            showTwoGlows: true,
+            repeatPauseDuration: Duration(milliseconds: 100),
+            shape: BoxShape.circle,
+            animate: true,
+            curve: Curves.fastOutSlowIn,
+            child: CircleAvatar(
+              backgroundColor: Color(0xffa9d2fe),
+              backgroundImage:
+                  AssetImage("assets/27470341_7294795-removebg-preview.png"),
+              radius: 100.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
