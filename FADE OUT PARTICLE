@@ -1,0 +1,87 @@
+
+import 'package:fade_out_particle/fade_out_particle.dart';
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'FadeOutParticle Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _disappear = true;
+
+  bool one = true;
+  bool two = true;
+  bool three = true;
+  var img = [
+    "https://images.pexels.com/photos/12411176/pexels-photo-12411176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/6765436/pexels-photo-6765436.jpeg",
+    "https://images.pexels.com/photos/16716950/pexels-photo-16716950/free-photo-of-light-vacation-dark-festival.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/16045125/pexels-photo-16045125/free-photo-of-instant-camera.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16, top: 100),
+        child: SizedBox(
+          height: 700,
+          child: ListView.separated(
+            itemCount: img.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, i) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FadeOutParticle(
+                      disappear: _disappear,
+                      duration: const Duration(milliseconds: 3000),
+                      child: Container(
+                        height: 350,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Image.network(img[i]),
+                      ),
+                      onAnimationEnd: () => print('animation ended'),
+                    ),
+                    const SizedBox(height: 150),
+                    OutlinedButton(
+                      onPressed: () => setState(() => _disappear = !_disappear),
+                      child: Text(_disappear ? 'Reset' : 'Start'),
+                    ),
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+              width: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
