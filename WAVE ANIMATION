@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
+
+void main() => runApp(WaveDemoApp());
+
+final String appName = 'Demo WAVE';
+final String repoURL = 'https://github.com/glorylab/wave';
+
+class WaveDemoApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: appName,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        useMaterial3: true,
+      ),
+      home: WaveDemoHomePage(title: appName),
+    );
+  }
+}
+
+class WaveDemoHomePage extends StatefulWidget {
+  WaveDemoHomePage({Key? key, this.title}) : super(key: key);
+
+  final String? title;
+
+  @override
+  _WaveDemoHomePageState createState() => _WaveDemoHomePageState();
+}
+
+class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
+  _buildCard({
+    required Config config,
+    Color? backgroundColor = Colors.transparent,
+    DecorationImage? backgroundImage,
+    double height = 152.0,
+  }) {
+    return Container(
+      height: height,
+      width: double.infinity,
+      child: Card(
+        elevation: 12.0,
+        margin: EdgeInsets.only(
+            right: marginHorizontal, left: marginHorizontal, bottom: 16.0),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        child: WaveWidget(
+          config: config,
+          backgroundColor: backgroundColor,
+          backgroundImage: backgroundImage,
+          size: Size(double.infinity, double.infinity),
+          waveAmplitude: 0,
+        ),
+      ),
+    );
+  }
+
+  double marginHorizontal = 16.0;
+
+  void _launchUrl(url) async {
+    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    marginHorizontal = 16.0 +
+        (MediaQuery.of(context).size.width > 512
+            ? (MediaQuery.of(context).size.width - 512) / 2
+            : 0);
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                SizedBox(height: 16.0),
+                Stack(
+                  children: [
+                    _buildCard(
+                      height: 500,
+                      backgroundColor: Colors.orangeAccent,
+                      config: CustomConfig(
+                        gradients: [
+                          [Colors.white, Color(0xffffffff)],
+                          [Colors.white, Color(0xffffffff)],
+                          [Colors.white, Color(0xffffffff)],
+                          [Colors.green, Color(0xffffffff)],
+                          // [Colors.red[800]!, Color(0x77E57373)],
+                          // [Colors.orange, Color(0x66FF9800)],
+                          // [Colors.yellow, Color(0x55FFEB3B)]
+                        ],
+                        durations: [35000, 19440, 10800, 6000],
+                        heightPercentages: [0.20, 0.23, 0.25, 0.60],
+                        gradientBegin: Alignment.bottomLeft,
+                        gradientEnd: Alignment.topRight,
+                      ),
+                    ),
+                  ],
+                ),
+             
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
