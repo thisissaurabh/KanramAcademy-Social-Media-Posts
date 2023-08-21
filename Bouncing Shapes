@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'The Flutter Way',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFFEEF1F8),
+        primarySwatch: Colors.blue,
+        fontFamily: "Intel",
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          errorStyle: TextStyle(height: 0),
+          border: defaultInputBorder,
+          enabledBorder: defaultInputBorder,
+          focusedBorder: defaultInputBorder,
+          errorBorder: defaultInputBorder,
+        ),
+      ),
+      home: Scaffold(
+        body: SizedBox(
+          child: Stack(
+            children: [
+              SizedBox(
+                  height: 650,
+                  width: double.infinity,
+                  child: RiveAnimation.asset(
+                    "assets/RiveAssets/shapes.riv",
+                    fit: BoxFit.cover,
+                  )),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Spacer(),
+                      SizedBox(
+                        width: 260,
+                        child: Column(
+                          children: const [
+                            Text(
+                              "Rive\nAnimation \nBouncing Shapes",
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  fontFamily: "Poppins",
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              "Don’t skip design. Learn design and code, by building real apps with Flutter and Swift. Complete courses about the best tools.",
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(flex: 2),
+
+                      // TODO: Add the animated Button
+
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24),
+                        child: Text(
+                          "",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const defaultInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(16)),
+  borderSide: BorderSide(
+    color: Color(0xFFDEE3F2),
+    width: 1,
+  ),
+);
