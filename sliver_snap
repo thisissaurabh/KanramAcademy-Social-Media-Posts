@@ -1,0 +1,107 @@
+import 'package:flutter/material.dart';
+import 'package:sliver_snap/sliver_snap.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.yellow,
+      ),
+      home: Padding(
+        padding: const EdgeInsets.only(top: 50.0),
+        child: SliverSnap(
+          onCollapseStateChanged: (isCollapsed, scrollingOffset, maxExtent) {},
+          collapsedBackgroundColor: Colors.black,
+          expandedBackgroundColor: Colors.transparent,
+          backdropWidget: Stack(
+            children: [
+              Image.network(
+                "https://images5.alphacoders.com/131/1311166.jpeg",
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 100,
+                right: 60,
+                left: 60,
+                child: Container(
+                  height: 200,
+                  width: 60,
+                  child: Image.network(
+                    "https://www.themoviedb.org/t/p/original/6IWQEyzAJGCSrbVcBwt01JshDzc.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          expandedContentHeight: 400,
+          expandedContent: const Center(
+            child: Icon(
+              Icons.ac_unit_sharp,
+              color: Colors.amber,
+              size: 1,
+            ),
+          ),
+          collapsedContent: Center(
+              child: Text(
+            "Kanram Academy",
+            style: TextStyle(
+                fontWeight: FontWeight.w700, fontSize: 40, color: Colors.white),
+          )),
+          body: Material(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+            elevation: 7,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40))),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MaterialButton(
+                          color: Colors.green,
+                          textColor: Colors.white,
+                          elevation: 10,
+                          height: 60,
+                          minWidth: 300,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            'Watch Now',
+                          ),
+                          onPressed: () {},
+                        ),
+                        Icon(
+                          Icons.add,
+                          size: 40,
+                          color: Colors.green,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 24),
+                    Text(
+                      "Batman was originally introduced as a ruthless vigilante who frequently killed or maimed criminals, but evolved into a character with a stringent moral code and strong sense of justice. Unlike most superheroes, Batman does not possess any superpowers, instead relying on his intellect, fighting skills, and wealth. with Robert Pattinson taking over the role of Bruce Wayne, we have an actor who’s not just prepared but hungry to explore this figure’s weird, dark instincts. This is not the dashing heir to a fortune prowling about, kicking ass in a cool costume. This is Travis Bickle in the Batsuit, detached and disillusioned. He’s two years into his tenure as Batman, tracking criminals from on high in Wayne Tower—an inspired switch from the usual sprawl of Wayne Manor, suggesting an even greater isolation from society. “They think I’m hiding in the shadows,” he intones in an opening voiceover. “But I am the shadows.” In the harsh light of day, Pattinson gives us hungover indie rock star vibes. But at night, you can see the rush he gets from swooping in and executing his version of vengeance, even beneath the tactical gear and eye black.",
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
