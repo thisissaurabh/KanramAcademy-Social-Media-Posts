@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Animated 3D Cards',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: ReadMore(),
+    );
+  }
+}
+
+class ReadMore extends StatefulWidget {
+  const ReadMore({Key? key}) : super(key: key);
+
+  @override
+  State<ReadMore> createState() => _ReadMoreState();
+}
+
+class _ReadMoreState extends State<ReadMore> {
+  var img = [
+    "https://images.pexels.com/photos/2533092/pexels-photo-2533092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/2404956/pexels-photo-2404956.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/207896/pexels-photo-207896.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/849835/pexels-photo-849835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/4275892/pexels-photo-4275892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  ];
+
+  var txt = [
+    "Perhaps travel cannot prevent bigotry, but by demonstrating that all peoples cry, laugh, eat, worry, and die, it can introduce the idea that if we try and understand each other, we may even become friends.” – Maya Angelou  ",
+    "“Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.”  ",
+    "“It liberates the vandal to travel — you never saw a bigoted, opinionated, stubborn, narrow-minded, self-conceited, almighty mean man in your life but he had stuck in one place since he was born and thought God made the world and dyspepsia and bile for his especial comfort and satisfaction.”  ",
+    "“Travel isn’t always pretty. It isn’t always comfortable. Sometimes it hurts, it even breaks your heart. But that’s okay. The journey changes you; it should change you. It leaves marks on your memory, on your consciousness, on your heart, and on your body. You take something with you. Hopefully, you leave something good behind.”   ",
+    "“It seems that the more places I see and experience, the bigger I realize the world to be. The more I become aware of, the more I realize how relatively little I know of it, how many places I have still to go, how much more there is to learn.” ",
+    "“Traveling is a brutality. It forces you to trust strangers and to lose sight of all that familiar comfort of home and friends. You are constantly off balance. Nothing is yours except the essential things: air, sleep, dreams, sea, the sky – all things tending towards the eternal or what we imagine of it.”  "
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SizedBox(
+          height: 650,
+          child: ListView.separated(
+            itemCount: img.length,
+            shrinkWrap: true,
+            // scrollDirection: Axis.horizontal,
+            itemBuilder: (_, i) {
+              return Column(
+                children: [
+                  Container(
+                    height: 250,
+                    width: 400,
+                    clipBehavior: Clip.hardEdge,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    child: Image.network(
+                      img[i],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ReadMoreText(
+                    txt[i],
+                    trimLines: 2,
+                    style: TextStyle(color: Colors.black),
+                    colorClickableText: Colors.pink,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: '...Expand',
+                    trimExpandedText: ' Collapse ',
+                  ),
+                ],
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+              height: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
